@@ -1,28 +1,29 @@
 package com.redsocial;
 
 import com.redsocial.models.Post;
+import com.redsocial.models.Comment;
+import com.redsocial.models.Reaction;
 import com.redsocial.services.PostService;
+import com.redsocial.services.InteractionService;
 
 public class MainInteraccion {
     public static void main(String[] args) {
         PostService postService = new PostService();
+        InteractionService interactionService = new InteractionService();
 
-        // 1. Crear posts
-        System.out.println("--- PASO 1: CREAR ---");
-        postService.guardarPost(new Post(1, "Post original", 101));
-        postService.guardarPost(new Post(2, "Este post se va a borrar", 102));
+        // Operaciones de Post (Programador B)
+        Post p1 = new Post(1, "Contenido del post", 101);
+        postService.guardarPost(p1);
+
+        // Operaciones de Interacción (Programador B)
+        Comment c1 = new Comment(1, "¡Increíble!", 1, 102);
+        interactionService.añadirComentario(c1);
+
+        Reaction r1 = new Reaction(Reaction.Tipo.LIKE, 1, 103);
+        interactionService.añadirReaccion(r1);
+
+        // Mostrar resultados
         postService.mostrarTodosLosPosts();
-
-        // 2. Editar un post existente
-        System.out.println("\n--- PASO 2: EDITAR ---");
-        postService.editarPost(1, "Post editado y mejorado por el Programador B");
-
-        // 3. Borrar un post
-        System.out.println("\n--- PASO 3: BORRAR ---");
-        postService.eliminarPost(2);
-
-        // 4. Ver resultado final en el muro
-        System.out.println("\n--- RESULTADO FINAL ---");
-        postService.mostrarTodosLosPosts();
+        interactionService.mostrarInteracciones();
     }
 }
