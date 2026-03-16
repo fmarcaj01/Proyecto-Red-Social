@@ -1,21 +1,22 @@
 package com.redsocial;
 
 import com.redsocial.models.Post;
-import com.redsocial.models.Comment;
-import com.redsocial.models.Reaction;
+import com.redsocial.services.PostService;
 
 public class MainInteraccion {
     public static void main(String[] args) {
+        // Inicializamos el servicio
+        PostService postService = new PostService();
 
-        Post miPost = new Post(1, "¡Hola mundo! Mi primer post en la red social.", 10);
-        
-        Comment miComentario = new Comment(1, "¡Qué buen post!", 1, 20);
-        
-        Reaction miLike = new Reaction(Reaction.Tipo.LIKE, 1, 30);
+        // Creamos un par de posts de prueba
+        Post p1 = new Post(1, "¡Mi primer post!", 101);
+        Post p2 = new Post(2, "Estudiando DAW en el Vivobook", 102);
 
-        System.out.println("--- PRUEBA PROGRAMADOR B ---");
-        System.out.println("Post creado: " + miPost.getContenido());
-        System.out.println("Comentario creado: " + miComentario.getTexto());
-        System.out.println("Reacción registrada correctamente.");
+        // Los guardamos usando el servicio
+        postService.guardarPost(p1);
+        postService.guardarPost(p2);
+
+        // Mostramos el muro
+        postService.mostrarTodosLosPosts();
     }
 }
